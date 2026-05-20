@@ -13,15 +13,8 @@ class BigNum
 
     vector<uint8_t> Big;
 
-//public:
+public:
 
-    void DesConverteSimples()const{
-       unsigned long long num = 0;
-        for(size_t i =0;i < Big.size();i++){
-            num += Big[i] * pow(256,i);
-        }
-        cout << num;
-    }
 
     string soma_base_10(string num_string1,string num_string2)const{
         size_t tam = max(num_string1.size(),num_string2.size());
@@ -61,7 +54,7 @@ class BigNum
 
     string multiplica(string &num_string,unsigned num)const{
         string resu = num_string;
-        for(size_t i =0;i < num;i++){
+        for(size_t i =0;i < num -1;i++){
             resu = soma_base_10(resu,num_string);
         }
 
@@ -186,12 +179,22 @@ public:
 
     string DesConverte()const{       
         string num = "0";
-        for(size_t i=0;i < Big.size();i++){
+        for(int i = Big.size() -1;i >= 0;i--)
+        for(uint8_t i :Big){
             num = multiplica(num,(unsigned)256);
             num = soma_base_10(num,to_string(Big.at(i) ) );
         }
         return num;
     }
+
+    void DesConverteSimples()const{
+        unsigned long long num = 0;
+        for(size_t i =0;i < Big.size();i++){
+            num += Big[i] * pow(256,i);
+        }
+        cout << num;
+    }
+
 
 };
 
@@ -286,6 +289,16 @@ int main()
     teste.mostra_bytes();
     cout  << "\n" << "valor em int: ";
     cout << teste.DesConverte();
+    cout << "a \n"; 
+    cout << teste1.soma_base_10("10","10");
+    cout << "\n"; 
+    string n1 = "10";
+    string n2 = "10";
+
+    cout << teste1.multiplica(n1,10);
+    cout << "\n"; 
+    //cout << "\n"; 
+    teste.DesConverteSimples();
 
     return 0;
 }
